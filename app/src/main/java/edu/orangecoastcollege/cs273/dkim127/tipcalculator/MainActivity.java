@@ -1,5 +1,6 @@
 package edu.orangecoastcollege.cs273.dkim127.tipcalculator;
 
+import java.text.NumberFormat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
     // associate the controller with the needed model
     private RestaurantBill currentBill = new RestaurantBill();
 
+    // formatter for currency
+    private NumberFormat formatter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,9 +38,31 @@ public class MainActivity extends AppCompatActivity {
         totalTextView = (TextView) findViewById(R.id.totalTextView);
         percentSeekBar = (SeekBar) findViewById(R.id.percentSeekBar);
 
+        // instantiate formatter
+        formatter = NumberFormat.getCurrencyInstance();
+
         // define a listener for the amountEditText
-        amountEditText.addTextChangedListener(new TextWatcher(amountTextChangedListener));
+        amountEditText.addTextChangedListener(amountTextChangedListener);
+
+        // define a listener for the percentSeekBar
+        percentSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                tipPercentTextView.setText(String.valueOf(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
+
 
     private TextWatcher amountTextChangedListener = new TextWatcher() {
         @Override
@@ -51,10 +77,12 @@ public class MainActivity extends AppCompatActivity {
             {
                 double amount = Double.parseDouble(s.toString()) / 100.0;
                 currentBill.setAmount(amount);
+                amountTextView.setText(String.valueOf(formatter.format(amount)));
             }
             catch (NumberFormatException e)
             {
                 amountEditText.setText("");
+                amountTextView.setText("");
             }
         }
 
