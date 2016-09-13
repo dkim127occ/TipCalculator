@@ -20,11 +20,7 @@
         android:layout_column="0"
         android:layout_columnSpan="2"
         android:layout_row="0"
-        android:layout_gravity="fill_horizontal"
-        android:padding="12dp"
-        android:background="#bbdefb"
-        android:elevation="4dp"
-        android:hint="@string/enter_amount" />
+        android:layout_gravity="fill_horizontal" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -33,7 +29,12 @@
         android:id="@+id/amountTextView"
         android:layout_column="0"
         android:layout_row="0"
-        android:layout_gravity="fill_horizontal" />
+        android:layout_gravity="fill_horizontal"
+        android:layout_columnSpan="2"
+        android:hint="@string/enter_amount"
+        android:elevation="4dp"
+        android:padding="12dp"
+        android:background="#bbdefb" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -95,4 +96,5 @@
         android:elevation="4dp"
         android:background="#ffe0b2"
         android:padding="12dp" />
+
 </GridLayout>
